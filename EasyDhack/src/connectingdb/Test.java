@@ -2,7 +2,8 @@ package connectingdb;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
+import org.apache.commons.lang.RandomStringUtils;
 
 public class Test {
 
@@ -21,28 +22,16 @@ public class Test {
 		}
 
 		ResultSet rs = null;
-
-		String query4 = "SELECT Nome FROM auth";
+		String query4 = "INSERT INTO Magazzino VALUES ('" + RandomStringUtils.randomAlphanumeric(10) + "', "
+				+ "'Caffè', 10, '25/01/2024')";
 
 		try {
-			rs = ct.getStatement().executeQuery(query4);
+			ct.getStatement().executeQuery(query4);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		ArrayList<String> nomi = new ArrayList<>();
-
-		try {
-			while (rs.next()) {
-				nomi.add(rs.getString("Nome"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.out.println(nomi);
 	}
 
 }
