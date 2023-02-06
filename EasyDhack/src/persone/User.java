@@ -5,7 +5,9 @@
 */
 package persone;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.archetype.Package.Magazzino;
 import com.archetype.Package.Ordine;
@@ -76,10 +78,10 @@ public class User {
 	}
 
 	public void login() {
-		ConsoleInputManager in = new ConsoleInputManager();
-		System.out.println("Inserire nome utente: ");
-		String nomeinserito = in.readLine();
-		Connectiontest ct = new Connectiontest("C:\\Users\\megan\\Downloads\\sqlite\\sqlite\\auth.db");
+		ResultSet rs = null;
+
+		Connectiontest ct = new Connectiontest(
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\EasyDhack\\auth.db");
 		ct.connect();
 
 		try {
@@ -88,14 +90,67 @@ public class User {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String query = "CONTAINS" + nomeinserito;
+
+		String query = "SELECT Nome FROM auth";
+
 		try {
-			ct.getStatement().execute(query);
-		} catch (Exception e) {
+			rs = ct.getStatement().executeQuery(query);
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		ArrayList<String> nomi = new ArrayList<>();
+
+		try {
+			while (rs.next()) {
+				nomi.add(rs.getString("Nome"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ConsoleInputManager in = new ConsoleInputManager();
+		String nomeinserito = null;
+		boolean flagnomeutente = false;
+		while (!flagnomeutente) {
+			System.out.println("Inserire nome utente: ");
+			nomeinserito = in.readLine();
+
+			for (String string : nomi) {
+				if (nomeinserito.equals(string))
+					flagnomeutente = true;
+			}
+		}
+
+		System.out.println("Nome utente corretto. Inserire password: ");
+		String pass = null;
+		String querypassword = "SELECT Password FROM auth WHERE Nome='" + nomeinserito + "'";
+		try {
+			rs = ct.getStatement().executeQuery(querypassword);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			pass = rs.getString("Password");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		boolean flagpassword = false;
+		while (!flagpassword) {
+			System.out.println("Inserire password: ");
+			String passwordinserita = in.readLine();
+			if (passwordinserita == pass) {
+				flagpassword = true;
+			}
+		}
+
+		ct.close();
 	}
 
 }
