@@ -5,10 +5,13 @@
 */
 package persone;
 
+import java.sql.SQLException;
+
 import com.archetype.Package.Magazzino;
 import com.archetype.Package.Ordine;
 import com.archetype.Package.Prodotto;
 
+import connectingdb.Connectiontest;
 import prog.io.ConsoleInputManager;
 
 // ----------- << imports@AAAAAAGFyotJtauBLeE= >>
@@ -76,11 +79,25 @@ public class User {
 		ConsoleInputManager in = new ConsoleInputManager();
 		System.out.println("Inserire nome utente: ");
 		String nomeinserito = in.readLine();
-		Connectiontest connection = new Connectiontest("auth.db");
-		connection.connect();
+		Connectiontest ct = new Connectiontest("C:\\Users\\megan\\Downloads\\sqlite\\sqlite\\auth.db");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String query = "CONTAINS" + nomeinserito;
+		try {
+			ct.getStatement().execute(query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
-// ----------- << class.extras@AAAAAAGFyotJtauBLeE= >>
-// ----------- >>
 
 }
+// ----------- << class.extras@AAAAAAGFyotJtauBLeE= >>
+// ----------- >>

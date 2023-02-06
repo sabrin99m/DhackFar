@@ -1,3 +1,4 @@
+package connectingdb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,13 +7,37 @@ import java.sql.Statement;
 
 public class Connectiontest {
 
-	private String pathDB = "C:\\Users\\megan\\Downloads\\sqlite\\sqlite\\auth.db";
+	private String pathDB;
 	private Connection connection = null;
 	private Statement statement = null;
 
 	public Connectiontest(String path) {
 		pathDB = path;
 
+	}
+
+	public String getPathDB() {
+		return pathDB;
+	}
+
+	public void setPathDB(String pathDB) {
+		this.pathDB = pathDB;
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
+
+	public Statement getStatement() {
+		return statement;
+	}
+
+	public void setStatement(Statement statement) {
+		this.statement = statement;
 	}
 
 	public void connect() {
@@ -31,6 +56,7 @@ public class Connectiontest {
 			sqlException.printStackTrace();
 			System.out.println("Connection Error!");
 		}
+
 	}
 
 	public void close() {
@@ -40,5 +66,6 @@ public class Connectiontest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 }
