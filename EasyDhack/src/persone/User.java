@@ -9,6 +9,8 @@ import com.archetype.Package.Magazzino;
 import com.archetype.Package.Ordine;
 import com.archetype.Package.Prodotto;
 
+import prog.io.ConsoleInputManager;
+
 // ----------- << imports@AAAAAAGFyotJtauBLeE= >>
 // ----------- >>
 
@@ -68,6 +70,15 @@ public class User {
 		for (Prodotto prodotto : m.getListaProdotti()) {
 			System.out.println("Nome prodotto: " + prodotto.getNome() + " , giacenza: " + prodotto.getScadenza());
 		}
+	}
+
+	public void login() {
+		ConsoleInputManager in = new ConsoleInputManager();
+		System.out.println("Inserire nome utente: ");
+		String nomeinserito = in.readLine();
+		Connectiontest connection = new Connectiontest("auth.db");
+		connection.connect();
+
 	}
 // ----------- << class.extras@AAAAAAGFyotJtauBLeE= >>
 // ----------- >>
