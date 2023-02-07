@@ -1,7 +1,7 @@
 package connectingdb;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import org.apache.commons.lang.RandomStringUtils;
 
@@ -21,9 +21,11 @@ public class Test {
 			e1.printStackTrace();
 		}
 
-		ResultSet rs = null;
-		String query4 = "INSERT INTO Magazzino VALUES ('" + RandomStringUtils.randomAlphanumeric(10) + "', "
-				+ "'Caffè', 10, '25/01/2024')";
+		Random random = new Random();
+		int q = random.nextInt(20);
+
+		String query4 = "INSERT INTO Magazzino VALUES ('" + RandomStringUtils.randomAlphanumeric(10)
+				+ "', 'Listerine', " + q + ", '15/03/2023')";
 
 		try {
 			ct.getStatement().executeQuery(query4);
@@ -31,6 +33,8 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		ct.close();
 
 	}
 

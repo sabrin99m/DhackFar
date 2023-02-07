@@ -81,7 +81,7 @@
 											"top": 47,
 											"width": 159,
 											"height": 13,
-											"text": "EASYDHACK"
+											"text": "DHACKFAR"
 										},
 										{
 											"_type": "LabelView",
@@ -3684,7 +3684,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGF76It0msF/kc="
 					},
-					"name": "EASYDHACK"
+					"name": "DHACKFAR"
 				},
 				{
 					"_type": "UMLActor",
