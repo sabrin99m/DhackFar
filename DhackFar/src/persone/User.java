@@ -9,12 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.archetype.Package.Magazzino;
-import com.archetype.Package.Ordine;
-import com.archetype.Package.Prodotto;
-
 import connectingdb.Connectiontest;
-import prog.io.ConsoleInputManager;
 
 // ----------- << imports@AAAAAAGFyotJtauBLeE= >>
 // ----------- >>
@@ -33,6 +28,11 @@ public class User {
 		this.Nome = Nome;
 		this.Cognome = Cognome;
 		this.Password = Password;
+	}
+
+	public User(String nome, String password) {
+		this.Nome = nome;
+		this.Password = password;
 	}
 
 	// gettersandsetters
@@ -57,31 +57,91 @@ public class User {
 	}
 
 	// methods
-	public void nuovoOrdine(Ordine o, Magazzino m) {
+	public void nuovoOrdine() {
 
 	}
 
-	public void visualizzaOrdini(Magazzino m) {
-		System.out.println(m.getListaOrdini());
+	public void visualizzaOrdini() {
+
 	}
 
-	public void visualizzaGiacenze(Magazzino m) {
-		for (Prodotto prodotto : m.getListaProdotti()) {
-			System.out.println("Nome prodotto: " + prodotto.getNome() + " , giacenza: " + prodotto.getQta());
+	public void visualizzaGiacenze() { // ACCESSO A DB
+		Connectiontest ct = new Connectiontest(
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-	}
 
-	public void visualizzaScadenze(Magazzino m) {
-		for (Prodotto prodotto : m.getListaProdotti()) {
-			System.out.println("Nome prodotto: " + prodotto.getNome() + " , giacenza: " + prodotto.getScadenza());
+		ResultSet resultSet = null;
+		String query = "SELECT ProdottoID, Nome, Quantità FROM Magazzino";
+		try {
+			resultSet = ct.getStatement().executeQuery(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		try {
+			while (resultSet.next()) {
+				System.out.println("Id: " + resultSet.getString("ProdottoID") + "| Nome: " + resultSet.getString("Nome")
+						+ "| Quantità: " + resultSet.getInt("Quantità"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ct.close();
+
 	}
 
-	public void login() {
+	public void visualizzaScadenze() { // ACCESSO A DB
+		Connectiontest ct = new Connectiontest(
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		ResultSet resultSet = null;
+		String query = "SELECT ProdottoID, Nome, Scadenza FROM Magazzino";
+		try {
+			resultSet = ct.getStatement().executeQuery(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			while (resultSet.next()) {
+				System.out.println("Id: " + resultSet.getString("ProdottoID") + "| Nome: " + resultSet.getString("Nome")
+						+ "| Scadenza: " + resultSet.getString("Scadenza"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ct.close();
+
+	}
+
+	public boolean login(String nomeutente, String password) {
 		ResultSet rs = null;
 
 		Connectiontest ct = new Connectiontest(
-				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\EasyDhack\\auth.db");
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
 		ct.connect();
 
 		try {
@@ -110,47 +170,34 @@ public class User {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		ConsoleInputManager in = new ConsoleInputManager();
-		String nomeinserito = null;
-		boolean flagnomeutente = false;
-		while (!flagnomeutente) {
-			System.out.println("Inserire nome utente: ");
-			nomeinserito = in.readLine();
-
-			for (String string : nomi) {
-				if (nomeinserito.equals(string))
-					flagnomeutente = true;
+		boolean corretto = false;
+		boolean flagnome = nomi.contains(nomeutente);
+		boolean flagpassword;
+		if (flagnome) {
+			String pass = null;
+			String querypassword = "SELECT Password FROM auth WHERE Nome='" + nomeutente + "'";
+			try {
+				rs = ct.getStatement().executeQuery(querypassword);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
 
-		System.out.println("Nome utente corretto. Inserire password: ");
-		String pass = null;
-		String querypassword = "SELECT Password FROM auth WHERE Nome='" + nomeinserito + "'";
-		try {
-			rs = ct.getStatement().executeQuery(querypassword);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				pass = rs.getString("Password");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		try {
-			pass = rs.getString("Password");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		boolean flagpassword = false;
-		while (!flagpassword) {
-			System.out.println("Inserire password: ");
-			String passwordinserita = in.readLine();
-			if (passwordinserita == pass) {
-				flagpassword = true;
+			flagpassword = pass.equals(password);
+			if (flagpassword) {
+				corretto = true;
 			}
 		}
 
 		ct.close();
+		return corretto;
 	}
 
 }

@@ -6,8 +6,6 @@
 package persone;
 
 import com.archetype.Package.DDT;
-import com.archetype.Package.Magazzino;
-import com.archetype.Package.Prodotto;
 
 public class Dipendente extends User {
 
@@ -15,17 +13,8 @@ public class Dipendente extends User {
 		super(UserID, Nome, Cognome, Password);
 	}
 
-	public void InserisciDDT(DDT ddt, Magazzino m) {
-		for (Prodotto prodotto : ddt.getListaProdConsegnati()) {
-			for (Prodotto p : m.getListaProdotti()) {
-				if (prodotto.getIDprodotto() == p.getIDprodotto()) {
-					p.setQta(p.getQta() + prodotto.getQta());
-				} else {
-
-				}
-			}
-		}
-
+	public void InserisciDDT(DDT ddt) {
+		// INSERIMENTO ORDINE DI CODICE DDT IN MAGAZZINODB
 	}
 // ----------- << class.extras@AAAAAAGFyo0wz6uwd1E= >>
 // ----------- >>

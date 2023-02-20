@@ -12,6 +12,6 @@
 	<classpathentry kind="lib" path="C:/Users/megan/.p2/pool/plugins/org.eclipse.swt_3.122.0.v20221123-2302.jar"/>
 	<classpathentry kind="lib" path="C:/Users/megan/Downloads/sqlite-jdbc.jar/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/apache-commons-lang.jar"/>
-	<classpathentry kind="lib" path="lib/prog-4edjar (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/megan/OneDrive/Documents/GitHub/EasyDhack/DhackFar/lib/prog-4edjar-_1__2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

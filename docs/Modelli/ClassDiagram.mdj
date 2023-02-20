@@ -213,30 +213,13 @@
 													"height": 13,
 													"text": "+Password: String",
 													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLAttributeView",
-													"_id": "AAAAAAGGDORqH2UbNjg=",
-													"_parent": {
-														"$ref": "AAAAAAGFyotJtquJ/1o="
-													},
-													"model": {
-														"$ref": "AAAAAAGGDORp/2UYawE="
-													},
-													"font": "Arial;13;0",
-													"left": 117,
-													"top": 178,
-													"width": 140.5498046875,
-													"height": 13,
-													"text": "+Magazzino: magazzino",
-													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 112,
 											"top": 113,
 											"width": 150.5498046875,
-											"height": 83
+											"height": 68
 										},
 										{
 											"_type": "UMLOperationCompartmentView",
@@ -259,7 +242,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 117,
-													"top": 201,
+													"top": 186,
 													"width": 140.5498046875,
 													"height": 13,
 													"text": "+nuovoOrdine()",
@@ -276,7 +259,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 117,
-													"top": 216,
+													"top": 201,
 													"width": 140.5498046875,
 													"height": 13,
 													"text": "+visualizzaOrdini()",
@@ -293,7 +276,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 117,
-													"top": 231,
+													"top": 216,
 													"width": 140.5498046875,
 													"height": 13,
 													"text": "+visualizzaGiacenze()",
@@ -310,7 +293,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 117,
-													"top": 246,
+													"top": 231,
 													"width": 140.5498046875,
 													"height": 13,
 													"text": "+visualizzaScadenze()",
@@ -327,7 +310,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 117,
-													"top": 261,
+													"top": 246,
 													"width": 140.5498046875,
 													"height": 13,
 													"text": "+login()",
@@ -336,7 +319,7 @@
 											],
 											"font": "Arial;13;0",
 											"left": 112,
-											"top": 196,
+											"top": 181,
 											"width": 150.5498046875,
 											"height": 83
 										},
@@ -1493,11 +1476,12 @@
 													"_parent": {
 														"$ref": "AAAAAAGGDNKuMkyL38A="
 													},
-													"visible": false,
 													"font": "Arial;13;0",
-													"left": 160,
-													"top": -16,
-													"height": 13
+													"left": 397,
+													"top": 109,
+													"width": 138.3662109375,
+													"height": 13,
+													"text": "«DATABASE»"
 												},
 												{
 													"_type": "LabelView",
@@ -1507,7 +1491,7 @@
 													},
 													"font": "Arial;13;1",
 													"left": 397,
-													"top": 111,
+													"top": 124,
 													"width": 138.3662109375,
 													"height": 13,
 													"text": "Magazzino"
@@ -1544,7 +1528,7 @@
 											"left": 392,
 											"top": 104,
 											"width": 148.3662109375,
-											"height": 25,
+											"height": 38,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAGGDNKuMkyMmcQ="
 											},
@@ -1567,64 +1551,11 @@
 											"model": {
 												"$ref": "AAAAAAGGDNKuMUyI98s="
 											},
-											"subViews": [
-												{
-													"_type": "UMLAttributeView",
-													"_id": "AAAAAAGGDNRRak4A9OU=",
-													"_parent": {
-														"$ref": "AAAAAAGGDNKuM0yQCZE="
-													},
-													"model": {
-														"$ref": "AAAAAAGGDNRRPk33XNk="
-													},
-													"font": "Arial;13;0",
-													"left": 397,
-													"top": 134,
-													"width": 138.3662109375,
-													"height": 13,
-													"text": "+ListaProdotti: ArrayList",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLAttributeView",
-													"_id": "AAAAAAGGDOSzCGXi6kA=",
-													"_parent": {
-														"$ref": "AAAAAAGGDNKuM0yQCZE="
-													},
-													"model": {
-														"$ref": "AAAAAAGGDOSy3WXfTw8="
-													},
-													"font": "Arial;13;0",
-													"left": 397,
-													"top": 149,
-													"width": 138.3662109375,
-													"height": 13,
-													"text": "+owner: String",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLAttributeView",
-													"_id": "AAAAAAGGEfidSeAdi20=",
-													"_parent": {
-														"$ref": "AAAAAAGGDNKuM0yQCZE="
-													},
-													"model": {
-														"$ref": "AAAAAAGGEfic5OAalpk="
-													},
-													"font": "Arial;13;0",
-													"left": 397,
-													"top": 164,
-													"width": 138.3662109375,
-													"height": 13,
-													"text": "+ListaOrdini",
-													"horizontalAlignment": 0
-												}
-											],
 											"font": "Arial;13;0",
 											"left": 392,
-											"top": 129,
+											"top": 142,
 											"width": 148.3662109375,
-											"height": 53
+											"height": 10
 										},
 										{
 											"_type": "UMLOperationCompartmentView",
@@ -1637,7 +1568,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 392,
-											"top": 182,
+											"top": 152,
 											"width": 148.3662109375,
 											"height": 10
 										},
@@ -3841,15 +3772,6 @@
 									},
 									"name": "Password",
 									"type": "String"
-								},
-								{
-									"_type": "UMLAttribute",
-									"_id": "AAAAAAGGDORp/2UYawE=",
-									"_parent": {
-										"$ref": "AAAAAAGFyotJtauBLeE="
-									},
-									"name": "Magazzino",
-									"type": "magazzino"
 								}
 							],
 							"operations": [
@@ -4199,35 +4121,7 @@
 									}
 								}
 							],
-							"attributes": [
-								{
-									"_type": "UMLAttribute",
-									"_id": "AAAAAAGGDNRRPk33XNk=",
-									"_parent": {
-										"$ref": "AAAAAAGGDNKuMUyI98s="
-									},
-									"name": "ListaProdotti",
-									"type": "ArrayList"
-								},
-								{
-									"_type": "UMLAttribute",
-									"_id": "AAAAAAGGDOSy3WXfTw8=",
-									"_parent": {
-										"$ref": "AAAAAAGGDNKuMUyI98s="
-									},
-									"name": "owner",
-									"type": "String"
-								},
-								{
-									"_type": "UMLAttribute",
-									"_id": "AAAAAAGGEfic5OAalpk=",
-									"_parent": {
-										"$ref": "AAAAAAGGDNKuMUyI98s="
-									},
-									"name": "ListaOrdini",
-									"type": ""
-								}
-							]
+							"stereotype": "DATABASE"
 						},
 						{
 							"_type": "UMLClass",

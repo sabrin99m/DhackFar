@@ -5,9 +5,12 @@
 */
 package persone;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang.RandomStringUtils;
+
+import connectingdb.Connectiontest;
 
 // ----------- << imports@AAAAAAGFyo3C16vtYQ0= >>
 // ----------- >>
@@ -20,9 +23,10 @@ public class Proprietario extends User {
 	private ArrayList<Dipendente> listaDipendenti;
 
 	public Proprietario(String UserID, String Nome, String Cognome, String Password,
-			ArrayList<Fornitore> listaFornitori) {
+			ArrayList<Fornitore> listaFornitori, ArrayList<Dipendente> listaDipendenti) {
 		super(UserID, Nome, Cognome, Password);
 		this.listaFornitori = listaFornitori;
+		this.listaDipendenti = listaDipendenti;
 	}
 
 	public ArrayList<Fornitore> getListaFornitori() {
@@ -41,8 +45,31 @@ public class Proprietario extends User {
 		listaFornitori.add(fornitore);
 	}
 
-	public void assumiDipendente(Dipendente dipendente) {
+	public void assumiDipendente(String Nome, String Cognome) {
+		Dipendente dipendente = new Dipendente(Nome + RandomStringUtils.randomAlphanumeric(4), Nome, Cognome, null);
+		assignPassword(dipendente);
 		listaDipendenti.add(dipendente);
+
+		Connectiontest ct = new Connectiontest(
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		String query = "INSERT INTO auth VALUES ('" + dipendente.getUserID() + "', '" + dipendente.getPassword() + "')";
+		try {
+			ct.getStatement().execute(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ct.close();
 	}
 // ----------- << class.extras@AAAAAAGFyo3C16vtYQ0= >>
 // ----------- >>
