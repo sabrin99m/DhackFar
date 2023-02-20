@@ -3,9 +3,14 @@ package Interface;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,7 +25,8 @@ import javax.swing.SwingConstants;
 public class DhackGUI {
 
 	private JFrame frmDhackfar;
-	private JTextField txtCiao;
+	private JTextField dataora;
+	private JTextField internetconnection;
 
 	/**
 	 * Launch the application.
@@ -31,7 +37,6 @@ public class DhackGUI {
 			public void run() {
 				try {
 					DhackGUI window = new DhackGUI();
-					window.frmDhackfar.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -51,13 +56,17 @@ public class DhackGUI {
 	 */
 	private void initialize() {
 		frmDhackfar = new JFrame();
+		frmDhackfar.setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(DhackGUI.class.getResource("/doc/resources/dhack3-removebg-preview-_1_.gif")));
 		frmDhackfar.setTitle("DhackFar1.0");
+		frmDhackfar.setVisible(true);
 		frmDhackfar.getContentPane().setForeground(new Color(0, 0, 0));
 		frmDhackfar.getContentPane().setBackground(new Color(222, 254, 252));
 		frmDhackfar.setBounds(100, 100, 450, 300);
 		frmDhackfar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setToolTipText("DhackFar 4 EasyDhack");
 		lblNewLabel
 				.setIcon(new ImageIcon(DhackGUI.class.getResource("/doc/resources/dhack3-removebg-preview-_1_.gif")));
 
@@ -73,42 +82,55 @@ public class DhackGUI {
 		});
 		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 20));
 
-		txtCiao = new JTextField();
-		txtCiao.setText(LocalDateTime.now().toString());
-		txtCiao.setEditable(false);
-		txtCiao.setBackground(null);
-		txtCiao.setColumns(10);
+		dataora = new JTextField();
+		dataora.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		String data = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+		dataora.setText(data);
+		dataora.setEditable(false);
+		dataora.setBackground(null);
+		dataora.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("BENVENUTO");
-		lblNewLabel_1.setForeground(new Color(255, 128, 0));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 30));
+		internetconnection = new JTextField();
+		internetconnection.setBackground(null);
+		internetconnection.setHorizontalAlignment(SwingConstants.RIGHT);
+		internetconnection.setEditable(false);
+		String site = "www.google.it";
+		try (Socket socket = new Socket()) {
+			InetSocketAddress addr = new InetSocketAddress(site, 80);
+			socket.connect(addr, 3000);
+			boolean isconnected = socket.isConnected();
+			if (isconnected) {
+				internetconnection.setText("Connesso a internet.");
+			} else {
+				internetconnection.setText("Connessione assente.");
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		internetconnection.setColumns(10);
 
 		GroupLayout groupLayout = new GroupLayout(frmDhackfar.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
-				.createSequentialGroup()
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup().addContainerGap()
-								.addComponent(txtCiao, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
-								.addComponent(lblNewLabel))
-						.addGroup(groupLayout.createSequentialGroup().addGap(141).addComponent(btnNewButton,
-								GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup().addGap(113).addComponent(lblNewLabel_1,
-								GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-				groupLayout.createSequentialGroup().addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(lblNewLabel))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup().addGap(54)
-								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addGap(31)
-								.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 76, Short.MAX_VALUE).addComponent(txtCiao,
-										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)))
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+						.addComponent(dataora, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, 124, Short.MAX_VALUE).addComponent(lblNewLabel)
+						.addGap(19))
+				.addGroup(groupLayout.createSequentialGroup().addGap(153)
+						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(158, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap(306, Short.MAX_VALUE)
+						.addComponent(internetconnection, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
+				.createSequentialGroup().addContainerGap()
+				.addComponent(internetconnection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)
+				.addGap(79).addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+				.addGap(7)
+				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblNewLabel).addComponent(
+						dataora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addContainerGap()));
 		frmDhackfar.getContentPane().setLayout(groupLayout);
 	}
-
 }

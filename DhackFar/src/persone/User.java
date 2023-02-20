@@ -65,7 +65,8 @@ public class User {
 
 	}
 
-	public void visualizzaGiacenze() { // ACCESSO A DB
+	public String visualizzaGiacenze() { // ACCESSO A DB
+		String string = "Prodotti: \n";
 		Connectiontest ct = new Connectiontest(
 				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
 		ct.connect();
@@ -88,8 +89,8 @@ public class User {
 
 		try {
 			while (resultSet.next()) {
-				System.out.println("Id: " + resultSet.getString("ProdottoID") + "| Nome: " + resultSet.getString("Nome")
-						+ "| Quantità: " + resultSet.getInt("Quantità"));
+				string = string.concat("Id: " + resultSet.getString("ProdottoID") + "| Nome: "
+						+ resultSet.getString("Nome") + "| Quantità: " + resultSet.getInt("Quantità") + "\n");
 
 			}
 		} catch (SQLException e) {
@@ -98,6 +99,7 @@ public class User {
 		}
 
 		ct.close();
+		return string;
 
 	}
 
