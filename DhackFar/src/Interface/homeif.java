@@ -35,6 +35,7 @@ public class homeif {
 		frmHome.setVisible(true);
 
 		JButton nuovoOrdine = new JButton("Nuovo Ordine");
+		nuovoOrdine.setToolTipText("nuovo ordine");
 		nuovoOrdine.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -42,8 +43,10 @@ public class homeif {
 		});
 
 		JButton btnNewButton = new JButton("Inserisci DDT");
+		btnNewButton.setToolTipText("inserisci ddt");
 
 		JButton btnNewButton_1 = new JButton("Visualizza Ordini");
+		btnNewButton_1.setToolTipText("visualizza ordini");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -52,15 +55,24 @@ public class homeif {
 		});
 
 		JButton btnNewButton_2 = new JButton("Visualizza Giacenze");
+		btnNewButton_2.setToolTipText("visualizza giacenze");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Magazzinoif magazzino = new Magazzinoif();
-				magazzino.visualizza(utente);
+				Giacenzeif magazzino = new Giacenzeif();
+				magazzino.visualizzagiacenze(utente);
 			}
 		});
 
 		JButton btnNewButton_3 = new JButton("Visualizza Scadenze");
+		btnNewButton_3.setToolTipText("visualizza scadenze");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Giacenzeif magazzino = new Giacenzeif();
+				magazzino.visualizzascadenze(utente);
+			}
+		});
 
 		JButton btnNewButton_4 = new JButton("LogOff");
 		btnNewButton_4.addActionListener(new ActionListener() {
