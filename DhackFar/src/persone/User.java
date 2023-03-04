@@ -7,9 +7,17 @@ package persone;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import com.archetype.Package.DDT;
+import com.archetype.Package.StatoOrdine;
 
 import connectingdb.Connectiontest;
+import connectingdb.connectingonline;
+import prog.io.FileInputManager;
 
 // ----------- << imports@AAAAAAGFyotJtauBLeE= >>
 // ----------- >>
@@ -57,11 +65,120 @@ public class User {
 	}
 
 	// methods
-	public void nuovoOrdine() {
+	public void aggiungiordine(ArrayList<String> id, ArrayList<Integer> q) {
+
+		connectingonline ct = new connectingonline("//127.0.0.1:3306/ordini");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		// scelta numero ordine
+
+		ArrayList<Long> listanumeroordini = new ArrayList<>();
+		ResultSet resultSet = null;
+		String querynum = "SELECT NumeroOrdine FROM ordini";
+		try {
+			resultSet = ct.getStatement().executeQuery(querynum);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			while (resultSet.next()) {
+				listanumeroordini.add(resultSet.getLong("NumeroOrdine"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String numero = new String();
+		for (int i = 0; i < 10; i++) {
+			Integer n = (int) (Math.random() * (9 + 1));
+			String ns = n.toString();
+			numero = numero.concat(ns);
+		}
+
+		long numord = Long.parseLong(numero);
+
+		boolean flagunique = true;
+
+		do {
+			for (Long long1 : listanumeroordini) {
+				if (long1 == numord) {
+					flagunique = false;
+				}
+			}
+		} while (!flagunique);
+
+		// data
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		GregorianCalendar calendar = new GregorianCalendar();
+		String query = new String();
+
+		for (int i = 0; i < id.size(); i++) {
+			String iD = id.get(i); // id
+			int quantity = q.get(i); // quantity
+			query = "INSERT INTO ordini VALUES (" + numord + ", '" + iD + "', " + quantity + ", '"
+					+ simpleDateFormat.format(calendar.getTime()).toString() + "', '" + StatoOrdine.CONFERMATO + "')";
+
+			try {
+				ct.getStatement().executeUpdate(query);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		ct.close();
 
 	}
 
-	public void visualizzaOrdini() {
+	public String visualizzaOrdini() {
+
+		String string = "Ordini: ";
+
+		connectingonline ct = new connectingonline("//127.0.0.1:3306/ordini");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		ResultSet resultSet = null;
+		String query = "SELECT NumeroOrdine, Stato FROM ORDINI GROUP BY NumeroOrdine";
+		try {
+			resultSet = ct.getStatement().executeQuery(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			while (resultSet.next()) {
+				string = string.concat("\nNumero Ordine: " + resultSet.getString("NumeroOrdine") + "| Stato: "
+						+ resultSet.getString("Stato"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ct.close();
+
+		return string;
 
 	}
 
@@ -103,7 +220,8 @@ public class User {
 
 	}
 
-	public void visualizzaScadenze() { // ACCESSO A DB
+	public String visualizzaScadenze() { // ACCESSO A DB
+		String string = "Scadenze: \n";
 		Connectiontest ct = new Connectiontest(
 				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
 		ct.connect();
@@ -126,8 +244,79 @@ public class User {
 
 		try {
 			while (resultSet.next()) {
-				System.out.println("Id: " + resultSet.getString("ProdottoID") + "| Nome: " + resultSet.getString("Nome")
-						+ "| Scadenza: " + resultSet.getString("Scadenza"));
+				string = string.concat("Id: " + resultSet.getString("ProdottoID") + "| Nome: "
+						+ resultSet.getString("Nome") + "| Scadenza: " + resultSet.getString("Scadenza") + "\n");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ct.close();
+		return string;
+	}
+
+	public void InserisciDDT(DDT ddt) {
+
+		ArrayList<String> stringid = listaIDProdotti();
+
+		// accesso a db ordini online per scaricare id e quantità prodotti consegnati e
+		// impostare lo stato a consegnato
+
+		connectingonline ct = new connectingonline("//127.0.0.1:3306/ordini");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		String queryconsegna = "UPDATE ordini SET Stato='CONSEGNATO' WHERE NumeroOrdine=" + ddt.getNumeroOrdine();
+		try {
+			ct.getStatement().executeUpdate(queryconsegna);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ResultSet resultSet = null;
+		String query = "SELECT IDProdotto, Qty FROM ordini WHERE NumeroOrdine=" + ddt.getNumeroOrdine();
+		try {
+			resultSet = ct.getStatement().executeQuery(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// accesso a db magazzino locale per aggiornare le quantità dei corrispondenti
+		// id, se non esiste si crea nuovo prodotto
+
+		Connectiontest ct1 = new Connectiontest(
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
+		ct1.connect();
+
+		try {
+			ct1.setStatement(ct1.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			while (resultSet.next()) {
+				if (stringid.contains(resultSet.getString(1))) {
+					String update = "UPDATE Magazzino SET Quantità=Quantità+" + resultSet.getString(2)
+							+ " WHERE ProdottoID='" + resultSet.getString(1) + "'";
+					ct1.getStatement().executeUpdate(update);
+				} else {
+					String nomescelto = sceglinome();
+					String datacasuale = datacasuale();
+					String insert = "INSERT INTO Magazzino VALUES ('" + resultSet.getString(1) + "', '" + nomescelto
+							+ "', " + resultSet.getInt(2) + ", '" + datacasuale + "')";
+					ct1.getStatement().executeUpdate(insert);
+				}
 
 			}
 		} catch (SQLException e) {
@@ -136,6 +325,7 @@ public class User {
 		}
 
 		ct.close();
+		ct1.close();
 
 	}
 
@@ -202,6 +392,209 @@ public class User {
 		return corretto;
 	}
 
+	// metodi accessori
+
+	public String prodotticonsigliati() {
+		String stringesauriti = "Prodotti in esaurimento: \n";
+		Connectiontest ct = new Connectiontest(
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		ResultSet resultSet = null;
+		String queryesauriti = "SELECT ProdottoID, Quantità FROM Magazzino WHERE Quantità<3";
+		try {
+			resultSet = ct.getStatement().executeQuery(queryesauriti);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			while (resultSet.next()) {
+				stringesauriti = stringesauriti.concat("Id: " + resultSet.getString("ProdottoID") + "| Quantità: "
+						+ resultSet.getInt("Quantità") + "\n");
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String stringscaduti = "\nProdotti in scadenza: \n";
+
+		ResultSet resultSet1 = null;
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = new GregorianCalendar();
+		String queryscaduti = "SELECT ProdottoID, JULIANDAY('" + simpleDateFormat.format(calendar.getTime())
+				+ "') - JULIANDAY(Scadenza) AS date_difference, Scadenza FROM Magazzino";
+		try {
+			resultSet1 = ct.getStatement().executeQuery(queryscaduti);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			while (resultSet1.next()) {
+				if (resultSet1.getDouble("date_difference") > 0) {
+					stringscaduti = stringscaduti.concat("Id: " + resultSet1.getString("ProdottoID") + "| Scadenza: "
+							+ resultSet1.getString("Scadenza") + "\n");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ct.close();
+
+		return stringesauriti + stringscaduti;
+	}
+
+	public ArrayList<String> listaIDProdotti() {
+
+		ArrayList<String> lista = new ArrayList<>();
+		Connectiontest ct = new Connectiontest(
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		ResultSet resultSet = null;
+		String queryid = "SELECT ProdottoID FROM Magazzino";
+		try {
+			resultSet = ct.getStatement().executeQuery(queryid);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			while (resultSet.next()) {
+				lista.add(resultSet.getString("ProdottoID"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return lista;
+	}
+
+	public ArrayList<String> listanomiProdotti() {
+
+		ArrayList<String> lista = new ArrayList<>();
+		Connectiontest ct = new Connectiontest(
+				"C:\\Users\\megan\\OneDrive\\Documents\\GitHub\\EasyDhack\\DhackFar\\localdb.db");
+		ct.connect();
+
+		try {
+			ct.setStatement(ct.getConnection().createStatement());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		ResultSet resultSet = null;
+		String queryid = "SELECT Nome FROM Magazzino";
+		try {
+			resultSet = ct.getStatement().executeQuery(queryid);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			while (resultSet.next()) {
+				lista.add(resultSet.getString("Nome"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return lista;
+	}
+
+	public String sceglinome() {
+
+		ArrayList<String> lista = new ArrayList<>();
+		FileInputManager file = new FileInputManager("nomifarmaci.txt");
+		while (file.readLine() != null) {
+			String nome = file.readLine();
+			lista.add(nome);
+		}
+
+		ArrayList<String> listanomi = listanomiProdotti();
+
+		boolean flagpresente = false;
+		String nomescelto = new String();
+
+		do {
+			nomescelto = lista.get((int) (Math.random() * (lista.size())));
+			if (listanomi.contains(nomescelto)) {
+				flagpresente = true;
+			}
+		} while (flagpresente);
+
+		return nomescelto;
+	}
+
+	public String datacasuale() {
+		String data = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		String[] datavet = data.split("-");
+		int anno = Integer.parseInt(datavet[0]) + (int) (Math.random() * (9 + 1));
+		int mese = 1;
+		if (anno == Integer.parseInt(datavet[0])) {
+			mese += Integer.parseInt(datavet[1]) + (int) (Math.random() * (12 - Integer.parseInt(datavet[1]) + 1));
+		} else {
+			mese += (int) (Math.random() * (11 + 1));
+		}
+
+		int giorno = 1;
+		if (anno == Integer.parseInt(datavet[0])) {
+			if (mese == Integer.parseInt(datavet[1])) {
+				giorno += Integer.parseInt(datavet[2])
+						+ (int) (Math.random() * (12 - Integer.parseInt(datavet[1]) + 1));
+			}
+		} else {
+			giorno += (int) (Math.random() * (28 + 1));
+		}
+
+		String datacasuale = new String();
+
+		String meses = new String();
+		String giornos = new String();
+		if (mese < 10) {
+			meses = "0" + mese;
+			if (giorno < 10) {
+				giornos = "0" + giorno;
+				datacasuale = anno + "-" + meses + "-" + giornos;
+			} else {
+				datacasuale = anno + "-" + meses + "-" + giorno;
+			}
+		} else {
+			datacasuale = anno + "-" + mese + "-" + giorno;
+		}
+
+		return datacasuale;
+
+	}
+
 }
+
 // ----------- << class.extras@AAAAAAGFyotJtauBLeE= >>
 // ----------- >>

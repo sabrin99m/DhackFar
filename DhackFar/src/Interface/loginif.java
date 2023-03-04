@@ -71,6 +71,7 @@ public class loginif {
 		passfield.setColumns(10);
 
 		RISULTATO = new JTextField();
+		RISULTATO.setToolTipText("esito login");
 		RISULTATO.setEditable(false);
 		RISULTATO.setHorizontalAlignment(SwingConstants.CENTER);
 		RISULTATO.setForeground(new Color(0, 0, 0));

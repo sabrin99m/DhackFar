@@ -12,14 +12,14 @@ package com.archetype.Package;
 // ----------- >>
 public class DDT { // viene generato al momento della CONSEGNA dell'ordine
 
-	private int numeroOrdine;
+	private long numeroOrdine;
 
-	public DDT(int numeroOrdine) {
+	public DDT(long numeroOrdine) {
 		this.numeroOrdine = numeroOrdine;
 	}
 
 	// gettersandsetters
-	public int getNumeroOrdine() {
+	public long getNumeroOrdine() {
 		return numeroOrdine;
 	}
 

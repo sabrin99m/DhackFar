@@ -39,10 +39,18 @@ public class homeif {
 		nuovoOrdine.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Nuovoordineif nuovoordine = new Nuovoordineif(utente);
 			}
 		});
 
 		JButton btnNewButton = new JButton("Inserisci DDT");
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DDT nuovoDdt = new DDT(utente);
+
+			}
+		});
 		btnNewButton.setToolTipText("inserisci ddt");
 
 		JButton btnNewButton_1 = new JButton("Visualizza Ordini");
@@ -50,7 +58,7 @@ public class homeif {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				viewOrdini ifOrdini = new viewOrdini(utente);
 			}
 		});
 
@@ -59,8 +67,7 @@ public class homeif {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Giacenzeif magazzino = new Giacenzeif();
-				magazzino.visualizzagiacenze(utente);
+				Giacenzeif magazzino = new Giacenzeif(utente);
 			}
 		});
 
@@ -69,8 +76,7 @@ public class homeif {
 		btnNewButton_3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Giacenzeif magazzino = new Giacenzeif();
-				magazzino.visualizzascadenze(utente);
+				Scadenzeif magazzino = new Scadenzeif(utente);
 			}
 		});
 

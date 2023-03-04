@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="C:/Users/megan/Downloads/sqlite-jdbc.jar/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/apache-commons-lang.jar"/>
 	<classpathentry kind="lib" path="C:/Users/megan/OneDrive/Documents/GitHub/EasyDhack/DhackFar/lib/prog-4edjar-_1__2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/megan/Downloads/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -22,11 +22,22 @@ public class Proprietario extends User {
 	private ArrayList<Fornitore> listaFornitori;
 	private ArrayList<Dipendente> listaDipendenti;
 
-	public Proprietario(String UserID, String Nome, String Cognome, String Password,
+	// singleton pattern
+	private static Proprietario uniqueProprietario;
+
+	private Proprietario(String UserID, String Nome, String Cognome, String Password,
 			ArrayList<Fornitore> listaFornitori, ArrayList<Dipendente> listaDipendenti) {
 		super(UserID, Nome, Cognome, Password);
 		this.listaFornitori = listaFornitori;
 		this.listaDipendenti = listaDipendenti;
+	}
+
+	public static synchronized Proprietario getProprietario(String UserID, String Nome, String Cognome, String Password,
+			ArrayList<Fornitore> listaFornitori, ArrayList<Dipendente> listaDipendenti) {
+		if (uniqueProprietario == null) {
+			uniqueProprietario = new Proprietario(UserID, Nome, Cognome, Password, listaFornitori, listaDipendenti);
+		}
+		return uniqueProprietario;
 	}
 
 	public ArrayList<Fornitore> getListaFornitori() {

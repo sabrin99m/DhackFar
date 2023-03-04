@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 import persone.User;
 
@@ -36,11 +38,6 @@ public class Scadenzeif {
 		magazzinoscadenze.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		magazzinoscadenze.getContentPane().setLayout(null);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setBackground(new Color(255, 255, 255));
-		textArea.setBounds(0, 0, 410, 223);
-		magazzinoscadenze.getContentPane().add(textArea);
-
 		JButton Back = new JButton("Back");
 		Back.addActionListener(new ActionListener() {
 			@Override
@@ -52,5 +49,15 @@ public class Scadenzeif {
 		Back.setBackground(null);
 		Back.setBounds(337, 229, 89, 23);
 		magazzinoscadenze.getContentPane().add(Back);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(0, 0, 426, 218);
+		magazzinoscadenze.getContentPane().add(scrollPane);
+
+		JTextArea txtrScadenze = new JTextArea();
+		scrollPane.setViewportView(txtrScadenze);
+		txtrScadenze.setText(utente.visualizzaScadenze());
+
 	}
 }

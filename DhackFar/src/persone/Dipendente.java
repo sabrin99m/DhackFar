@@ -5,17 +5,12 @@
 */
 package persone;
 
-import com.archetype.Package.DDT;
-
 public class Dipendente extends User {
 
 	public Dipendente(String UserID, String Nome, String Cognome, String Password) {
 		super(UserID, Nome, Cognome, Password);
 	}
 
-	public void InserisciDDT(DDT ddt) {
-		// INSERIMENTO ORDINE DI CODICE DDT IN MAGAZZINODB
-	}
 // ----------- << class.extras@AAAAAAGFyo0wz6uwd1E= >>
 // ----------- >>
 

@@ -315,13 +315,30 @@
 													"height": 13,
 													"text": "+login()",
 													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAGGqQqN9SjvuIw=",
+													"_parent": {
+														"$ref": "AAAAAAGFyotJt6uKiYU="
+													},
+													"model": {
+														"$ref": "AAAAAAGGqQqNsSjsrl8="
+													},
+													"font": "Arial;13;0",
+													"left": 117,
+													"top": 261,
+													"width": 140.5498046875,
+													"height": 13,
+													"text": "+InserisciDDT()",
+													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 112,
 											"top": 181,
 											"width": 150.5498046875,
-											"height": 83
+											"height": 98
 										},
 										{
 											"_type": "UMLReceptionCompartmentView",
@@ -1217,23 +1234,6 @@
 											"subViews": [
 												{
 													"_type": "UMLOperationView",
-													"_id": "AAAAAAGFyqwSN8+As3E=",
-													"_parent": {
-														"$ref": "AAAAAAGFyqAaAcdMOZU="
-													},
-													"model": {
-														"$ref": "AAAAAAGFyqwSIM995lY="
-													},
-													"font": "Arial;13;0",
-													"left": 445,
-													"top": 394,
-													"width": 138.3662109375,
-													"height": 13,
-													"text": "+confermaOrdine()",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLOperationView",
 													"_id": "AAAAAAGFyqxecs/VKWA=",
 													"_parent": {
 														"$ref": "AAAAAAGFyqAaAcdMOZU="
@@ -1243,27 +1243,10 @@
 													},
 													"font": "Arial;13;0",
 													"left": 445,
-													"top": 409,
+													"top": 394,
 													"width": 138.3662109375,
 													"height": 13,
 													"text": "+consegnaOrdine()",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLOperationView",
-													"_id": "AAAAAAGFz/GovwxYAPA=",
-													"_parent": {
-														"$ref": "AAAAAAGFyqAaAcdMOZU="
-													},
-													"model": {
-														"$ref": "AAAAAAGFz/GojAxVLWQ="
-													},
-													"font": "Arial;13;0",
-													"left": 445,
-													"top": 424,
-													"width": 138.3662109375,
-													"height": 13,
-													"text": "+checkDisponibilità()",
 													"horizontalAlignment": 0
 												},
 												{
@@ -1277,7 +1260,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 445,
-													"top": 439,
+													"top": 409,
 													"width": 138.3662109375,
 													"height": 13,
 													"text": "+inoltroOrdine()",
@@ -1288,7 +1271,7 @@
 											"left": 440,
 											"top": 389,
 											"width": 148.3662109375,
-											"height": 68
+											"height": 38
 										},
 										{
 											"_type": "UMLReceptionCompartmentView",
@@ -2792,7 +2775,7 @@
 													"top": 398,
 													"width": 136.20166015625,
 													"height": 13,
-													"text": "+numeroOrdine: int",
+													"text": "+numeroOrdine: long",
 													"horizontalAlignment": 0
 												},
 												{
@@ -3325,24 +3308,7 @@
 													"top": 486,
 													"width": 182.45068359375,
 													"height": 13,
-													"text": "+numeroOrdine: int",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLAttributeView",
-													"_id": "AAAAAAGGDxox0diaQnM=",
-													"_parent": {
-														"$ref": "AAAAAAGGDxl/lddyjNA="
-													},
-													"model": {
-														"$ref": "AAAAAAGGDxoxidiLArw="
-													},
-													"font": "Arial;13;0",
-													"left": 45,
-													"top": 501,
-													"width": 182.45068359375,
-													"height": 13,
-													"text": "+listaProdConsegnati: ArrayList",
+													"text": "+numeroOrdine: long",
 													"horizontalAlignment": 0
 												}
 											],
@@ -3350,7 +3316,7 @@
 											"left": 40,
 											"top": 481,
 											"width": 192.45068359375,
-											"height": 38
+											"height": 23
 										},
 										{
 											"_type": "UMLOperationCompartmentView",
@@ -3363,7 +3329,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 40,
-											"top": 519,
+											"top": 504,
 											"width": 192.45068359375,
 											"height": 10
 										},
@@ -3814,6 +3780,14 @@
 										"$ref": "AAAAAAGFyotJtauBLeE="
 									},
 									"name": "login"
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAGGqQqNsSjsrl8=",
+									"_parent": {
+										"$ref": "AAAAAAGFyotJtauBLeE="
+									},
+									"name": "InserisciDDT"
 								}
 							]
 						},
@@ -4023,27 +3997,11 @@
 							"operations": [
 								{
 									"_type": "UMLOperation",
-									"_id": "AAAAAAGFyqwSIM995lY=",
-									"_parent": {
-										"$ref": "AAAAAAGFyqAZ/sdD2+M="
-									},
-									"name": "confermaOrdine"
-								},
-								{
-									"_type": "UMLOperation",
 									"_id": "AAAAAAGFyqxeUc/S9LM=",
 									"_parent": {
 										"$ref": "AAAAAAGFyqAZ/sdD2+M="
 									},
 									"name": "consegnaOrdine"
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAGFz/GojAxVLWQ=",
-									"_parent": {
-										"$ref": "AAAAAAGFyqAZ/sdD2+M="
-									},
-									"name": "checkDisponibilità"
 								},
 								{
 									"_type": "UMLOperation",
@@ -4218,7 +4176,7 @@
 										"$ref": "AAAAAAGGDN+HnGAdIAc="
 									},
 									"name": "numeroOrdine",
-									"type": "int"
+									"type": "long"
 								},
 								{
 									"_type": "UMLAttribute",
@@ -4295,16 +4253,7 @@
 										"$ref": "AAAAAAGGDxl/kddqeIM="
 									},
 									"name": "numeroOrdine",
-									"type": "int"
-								},
-								{
-									"_type": "UMLAttribute",
-									"_id": "AAAAAAGGDxoxidiLArw=",
-									"_parent": {
-										"$ref": "AAAAAAGGDxl/kddqeIM="
-									},
-									"name": "listaProdConsegnati",
-									"type": "ArrayList"
+									"type": "long"
 								}
 							]
 						}

@@ -111,26 +111,35 @@ public class DhackGUI {
 		internetconnection.setColumns(10);
 
 		GroupLayout groupLayout = new GroupLayout(frmDhackfar.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
-						.addComponent(dataora, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 124, Short.MAX_VALUE).addComponent(lblNewLabel)
-						.addGap(19))
-				.addGroup(groupLayout.createSequentialGroup().addGap(153)
-						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(158, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap(306, Short.MAX_VALUE)
-						.addComponent(internetconnection, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
-				.createSequentialGroup().addContainerGap()
-				.addComponent(internetconnection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE)
-				.addGap(79).addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-				.addGap(7)
-				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblNewLabel).addComponent(
-						dataora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap()));
+		groupLayout
+				.setHorizontalGroup(
+						groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup().addGap(153)
+										.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 125,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap(158, Short.MAX_VALUE))
+								.addGroup(groupLayout
+										.createSequentialGroup().addContainerGap(306, Short.MAX_VALUE)
+										.addComponent(internetconnection, GroupLayout.PREFERRED_SIZE, 120,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
+								.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+										.addComponent(dataora, GroupLayout.PREFERRED_SIZE, 183,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+										.addComponent(lblNewLabel).addGap(19)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(internetconnection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addGap(79)
+						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dataora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(31)));
 		frmDhackfar.getContentPane().setLayout(groupLayout);
 	}
 }
